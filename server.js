@@ -1,9 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
 const bodyParser = require("body-parser");
-const axios = require("axios");
 const { register, login, logout } = require("./controllers/authController");
 const { fetchData } = require("./controllers/dataConroller");
 const verifyToken = require("./middlewares/authMiddleware");
@@ -12,7 +9,7 @@ const verifyToken = require("./middlewares/authMiddleware");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerOptions = require("./swaggerConfig");
-const getEthereumBalance = require("./utils");
+const { fetchBalance } = require("./controllers/web3Controller");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -45,16 +42,7 @@ app.get("/protected", verifyToken, (req, res) => {
 });
 
 //** TASK 5 */
-app.get("/eth-balance/:address", async (req, res) => {
-  const address = req.params.address;
-
-  try {
-    const balance = await getEthereumBalance(address);
-    res.json({ balance });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+app.get("/eth-balance/:address", fetchBalance);
 
 const specs = swaggerJsdoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));

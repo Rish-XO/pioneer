@@ -66,7 +66,6 @@ exports.register = (req, res) => {
   res.status(201).json({ token, message: "User registered successfully" });
 };
 
-
 /**
  * @swagger
  * /login:

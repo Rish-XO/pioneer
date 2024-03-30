@@ -11,7 +11,7 @@ const swaggerOptions = {
       { url: `http://localhost:${PORT}` }, // Adjust the URL based on your deployment
     ],
   },
-  apis: ["./controllers/*.js"], 
+  apis: ["./controllers/*.js"],
 };
 
 module.exports = swaggerOptions;

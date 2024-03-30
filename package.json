@@ -12,5 +12,16 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
     "web3": "^4.7.0"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "pioneer",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
