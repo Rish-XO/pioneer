@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const axios = require("axios");
 const { register, login, logout } = require("./controllers/authController");
 const { fetchData } = require("./controllers/dataConroller");
+const verifyToken = require("./middlewares/authMiddleware");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,24 +30,6 @@ app.post("/logout", logout);
 app.get("/data-api", fetchData);
 
 //*** TASK 4 */
-// Middleware to verify JWT token
-const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization;
-
-  if (!token) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-
-  jwt.verify(token, SECRET_KEY, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: "Invalid token" });
-    }
-
-    req.user = decoded;
-    next();
-  });
-};
-
 // Protected route
 app.get("/protected", verifyToken, (req, res) => {
   res.json({
