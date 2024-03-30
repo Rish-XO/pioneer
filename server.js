@@ -42,7 +42,7 @@ app.post('/login', (req, res) => {
 
   // Check if user exists
   if (!user) {
-    return res.status(401).json({ message: 'Invalid username or password' });
+    return res.status(404).json({ message: 'Invalid username or password' });
   }
 
   // Validate password
@@ -53,12 +53,12 @@ app.post('/login', (req, res) => {
   // Generate JWT token
   const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
 
-  res.json({ token , message : "You have logged In successfully"});
+  res.status(200).json({ token , message : "You have logged In successfully"});
 });
 
 // Endpoint for user logout
 app.post('/logout', (req, res) => {
-    res.json({ message: 'Logged out successfully' });
+    res.statusjson({ message: 'Logged out successfully' });
   });
   
 
