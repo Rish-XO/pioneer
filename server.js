@@ -8,6 +8,11 @@ const { register, login, logout } = require("./controllers/authController");
 const { fetchData } = require("./controllers/dataConroller");
 const verifyToken = require("./middlewares/authMiddleware");
 
+//swagger imports
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerOptions = require("./swaggerConfig");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 const SECRET_KEY = process.env.SECRET_KEY;
@@ -17,7 +22,7 @@ app.use(bodyParser.json());
 
 // **** TASK 1 ****
 // Endpoint for user registration
-app.post("/register",register)
+app.post("/register", register);
 
 // Endpoint for user login
 app.post("/login", login);
@@ -38,6 +43,9 @@ app.get("/protected", verifyToken, (req, res) => {
   });
 });
 
+
+const specs = swaggerJsdoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs))
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

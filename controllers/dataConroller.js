@@ -1,5 +1,73 @@
 const axios = require('axios'); 
 
+
+/**
+ * @swagger
+ * /data-api:
+ *   get:
+ *     summary: Fetch data from a public API
+ *     description: Retrieves data from the public API at https://api.publicapis.org/entries. You can filter results by category and limit the number of results.
+ *     parameters:
+ *       - in: query
+ *         name: category
+ *         description: Filter results by category (case-insensitive)
+ *         type: string
+ *       - in: query
+ *         name: limit
+ *         description: Limit the number of results returned (positive integer)
+ *         type: integer
+ *     responses:
+ *       200:
+ *         description: Data fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   API:
+ *                     type: string
+ *                   Description:
+ *                     type: string
+ *                   Auth:
+ *                     type: string
+ *                   HTTPS:
+ *                     type: boolean
+ *                   Cors:
+ *                     type: string
+ *                   Link:
+ *                     type: string
+ *                   Category:
+ *                     type: string
+ *       400:
+ *         description: Invalid query parameter (e.g., invalid limit value)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: Category not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
 exports.fetchData = async (req, res) => {
     try {
         // Fetch data from the public API

@@ -1,17 +1,17 @@
-const swaggerJSDoc = require("swagger-jsdoc");
+const PORT = process.env.PORT || 3000;
 
-const options = {
+const swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: "API Documentation",
+      title: "Your API Title",
       version: "1.0.0",
-      description: "API documentation for my application",
+      description: "Your API description",
     },
-    basePath: "/",
+    servers: [
+      { url: `http://localhost:${PORT}` }, // Adjust the URL based on your deployment
+    ],
   },
-  apis: ["./server.js"], // Path to the API routes
+  apis: ["./controllers/*.js"], 
 };
 
-const swaggerSpec = swaggerJSDoc(options);
-
-module.exports = swaggerSpec;
+module.exports = swaggerOptions;
