@@ -8,10 +8,11 @@ const { register, login, logout } = require("./controllers/authController");
 const { fetchData } = require("./controllers/dataConroller");
 const verifyToken = require("./middlewares/authMiddleware");
 
-//swagger imports
+//swagger imports TASK 3
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerOptions = require("./swaggerConfig");
+const getEthereumBalance = require("./utils");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -43,9 +44,20 @@ app.get("/protected", verifyToken, (req, res) => {
   });
 });
 
+//** TASK 5 */
+app.get("/eth-balance/:address", async (req, res) => {
+  const address = req.params.address;
+
+  try {
+    const balance = await getEthereumBalance(address);
+    res.json({ balance });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 const specs = swaggerJsdoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs))
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
