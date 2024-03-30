@@ -37,7 +37,6 @@ app.post('/register', (req, res) => {
 // Endpoint for user login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-console.log(users)
   // Find user by username
   const user = users.find(user => user.username === username);
 
