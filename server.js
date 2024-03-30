@@ -85,7 +85,7 @@ const verifyToken = (req, res, next) => {
 // Protected route
 app.get("/protected", verifyToken, (req, res) => {
   res.json({
-    message: "Protected route accessed successfully",
+    message: "Secret Message",
     user: req.user,
   });
 });
